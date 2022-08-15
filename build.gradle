@@ -1,0 +1,27 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id 'java'
+}
+
+group = 'com.fanchuntsang'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.projectlombok:lombok:'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'commons-codec:commons-codec'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
