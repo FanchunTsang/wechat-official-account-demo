@@ -1,6 +1,10 @@
 package com.fanchuntsang.wechatofficialaccount.controller;
 
+import com.fanchuntsang.wechatofficialaccount.handler.EventHandlerBuilder;
+import com.fanchuntsang.wechatofficialaccount.handler.WechatEventBaseHandler;
+import com.fanchuntsang.wechatofficialaccount.pojo.Event;
 import com.fanchuntsang.wechatofficialaccount.util.SHA1;
+import com.fanchuntsang.wechatofficialaccount.util.XmlParseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,11 +36,29 @@ public class PortalController {
     }
 
 
-    @PostMapping(produces = "application/json;charset=utf-8")
+/*    @PostMapping(produces = "application/json;charset=utf-8")
     public String post(@RequestBody String message) {
         log.info("received from wechat： \n" + message);
         if (StringUtils.isNoneBlank(message)) {
             return "success";
+        }
+        return "error";
+    }*/
+
+    @PostMapping(produces = "application/json;charset=utf-8")
+    public String post(@RequestBody String message) {
+        log.info("received from wechat： \n" + message);
+        if (StringUtils.isNoneBlank(message)) {
+            Event event = (Event) XmlParseUtil.convertXmlStrToObject(Event.class, message);
+            WechatEventBaseHandler handler = new EventHandlerBuilder().build(event);
+            if (null != handler) {
+                String response = handler.response();
+                log.info("response: \n" + response);
+                return response;
+            } else {
+                log.info("can't handle this type of event");
+                return "success";
+            }
         }
         return "error";
     }
