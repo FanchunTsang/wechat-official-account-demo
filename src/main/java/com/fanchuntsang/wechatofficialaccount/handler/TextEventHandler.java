@@ -28,14 +28,4 @@ public class TextEventHandler extends WechatEventBaseHandler {
     protected String replyIam(String toUser, String fromUser) {
         return createReplyBody(toUser, fromUser, "我是Thomas的玩具Tom");
     }
-
-    protected String createReplyBody(String toUser, String fromUser, String content) {
-        return "<xml>" +
-                "<ToUserName><![CDATA[" + toUser + "]]></ToUserName>" +
-                "<FromUserName><![CDATA[" + fromUser + "]]></FromUserName>" +
-                "<CreateTime>12345678</CreateTime>" +
-                "<MsgType><![CDATA[text]]></MsgType>" +
-                "<Content><![CDATA[" + content + "]]></Content>" +
-                "</xml>";
-    }
 }

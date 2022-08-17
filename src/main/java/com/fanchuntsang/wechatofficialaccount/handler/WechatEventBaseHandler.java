@@ -16,4 +16,14 @@ public abstract class WechatEventBaseHandler {
     String eventKey;
 
     public abstract String response();
+
+    public static String createReplyBody(String toUser, String fromUser, String content) {
+        return "<xml>" +
+                "<ToUserName><![CDATA[" + toUser + "]]></ToUserName>" +
+                "<FromUserName><![CDATA[" + fromUser + "]]></FromUserName>" +
+                "<CreateTime>12345678</CreateTime>" +
+                "<MsgType><![CDATA[text]]></MsgType>" +
+                "<Content><![CDATA[" + content + "]]></Content>" +
+                "</xml>";
+    }
 }
